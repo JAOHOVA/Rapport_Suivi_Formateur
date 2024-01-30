@@ -334,14 +334,15 @@ function suivi_formateurs_certificats ( &$action ) {
                         "non_valide_6_mois" => ($response === 6) ? "X" : ""
                     ];
 					
-					foreach ($aDonneesDataSource as $aDonneesDataSources){
-						foreach($aDonneesDataSources as $aDonneesSyntheses){
-							$aDonneesSynthese[] = $aDonneesSyntheses;
-						}
-					}
 					
 					$num_categorie++;
 					
+				}
+			}
+			
+			foreach ($aDonneesDataSource as $aDonneesDataSources){
+				foreach($aDonneesDataSources as $aDonneesSyntheses){
+					$aDonneesSynthese[] = $aDonneesSyntheses;
 				}
 			}
 			
