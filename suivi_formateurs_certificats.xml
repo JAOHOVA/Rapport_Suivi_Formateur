@@ -1,0 +1,651 @@
+<html>
+<head>
+<title>Bilan Formation</title>
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=CORE&action=CORE_CSS" >
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_BASEURL]app=FDL&action=FDL_CSS" >
+<LINK rel="stylesheet" type="text/css" href="jscalendar/Layout/calendar-win2k-2.css">
+<LINK rel="stylesheet" type="text/css" href="FREEDOM/Layout/viewreport.css">
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.7.0/default/default-main.css"/>
+<script src="https://kendo.cdn.telerik.com/2023.2.829/js/jquery.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2023.2.829/js/kendo.all.min.js"></script>
+<!-- Bibliothèque JSZip -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+
+
+[CSS:REF]
+
+<script type="text/javascript">
+
+var Onglet_afficher = 1;
+
+function Affiche(Nom){
+	document.getElementById('affiche-contenu-' + Onglet_afficher).className = 'inactif onglet';
+	document.getElementById('affiche-contenu-' + Nom).className = 'affiche-contenu-1 onglet';
+	document.getElementById('contenu_' + Onglet_afficher).style.display = 'none';
+	document.getElementById('contenu_' + Nom).style.display = 'block';
+	
+	Onglet_afficher = Nom;	
+}
+
+</script>
+
+<style type="text/css">
+
+.conteneur-onglets {
+	margin: 0;
+	padding:0 0 0 5px;
+}
+.onglet{
+	display:inline-block;
+	margin:5px 2px 0 2px;
+	padding:5px 10px ;
+	border:1px solid #AAA;
+	border-bottom:none;
+	border-radius:5px 5px 0 0;
+	-webkit-border-radius:4px 4px 0 0;
+	-moz-border-radius:4px 4px 0 0;
+	color:#555;
+	cursor: pointer;
+	font-weight:bold;
+}
+.inactif{
+	background:#EEE;
+}
+.inactif:hover{
+	background:#AAA;
+}
+.affiche-contenu-1{
+	background:white;
+	border-bottom:2px solid white;
+	padding-bottom:4px;
+	cursor:text;
+}
+.contenu{
+	background-color:white;
+	margin-top:-1px;
+	padding:5px;
+	display:none;
+	border:1px solid #AAA;
+	border-radius:4px;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	color:#555;
+	cursor: text;
+}
+
+.txterror {
+    color: #FF0000;
+    font-weight: bold;
+}
+.odd{
+    color: black;
+    background-color: lavender;
+}
+.even{
+    color: black;
+    background-color: #CCFFFF;
+}
+[CSS:CODE]
+</style>
+</head>
+
+<body>
+<table width="95%" align="center"  border="0" cellspacing="0" cellpadding="0">
+	<tr>
+    	<td  >
+			[MENUTAB]
+		</td>
+	</tr>
+</table>
+
+<table>
+    <tr>
+        <td height="40px"=>&nbsp;</td>
+    </tr>
+</table>
+
+<form   id="fedit"
+        class="fborder"
+        name="fqrydates"
+        method="POST"
+        action="[CORE_STANDURL]&app=RAPPORT&action=">
+
+<table table width="95%" align="center"  border="0" cellspacing="0" cellpadding="0">
+<tr>
+    <td>
+     <fieldset class="mfield"><legend style="cursor:pointer">Suivi des certifications des formateurs CACES</legend>
+     <ul class='conteneur-onglets'>
+		 <li class='inactif onglet' id='affiche-contenu-1' onclick="javascript:Affiche('1');">R482</li>
+		 <li class='inactif onglet' id='affiche-contenu-2' onclick="javascript:Affiche('2');">R483</li>
+		 <li class='inactif onglet' id='affiche-contenu-3' onclick="javascript:Affiche('3');">R484</li>
+		 <li class='inactif onglet' id='affiche-contenu-4' onclick="javascript:Affiche('4');">R485</li>
+		 <li class='inactif onglet' id='affiche-contenu-5' onclick="javascript:Affiche('5');">R486</li>
+		 <li class='inactif onglet' id='affiche-contenu-6' onclick="javascript:Affiche('6');">R487</li>
+		 <li class='inactif onglet' id='affiche-contenu-7' onclick="javascript:Affiche('7');">R489</li>
+		 <li class='inactif onglet' id='affiche-contenu-8' onclick="javascript:Affiche('8');">R490</li>
+         <li class='inactif onglet' id='affiche-contenu-9' onclick="javascript:Affiche('9');">Synthese</li>
+     </ul>
+		 <!-- <div class="contenu" id="contenu_1">[DATAR482]</div>
+		 <div class="contenu" id="contenu_2">[DATAR483]</div>
+		 <div class="contenu" id="contenu_3">[DATAR484]</div>
+		 <div class="contenu" id="contenu_4">[DATAR485]</div>
+		 <div class="contenu" id="contenu_5">[DATAR486]</div>
+		 <div class="contenu" id="contenu_6">[DATAR487]</div>
+		 <div class="contenu" id="contenu_7">[DATAR489]</div>
+		 <div class="contenu" id="contenu_8">[DATAR490]</div>-->
+		<div class="contenu" id="contenu_1">
+		    <div style="[GRID_DATAR482]"><div id="grid_482"></div></div>
+            <div style="[NC_DATAR482]; margin:30 5">Aucun formateur/testeur n'a de certification en R482</div>
+		</div>
+		<div class="contenu" id="contenu_2">
+		    <div style="[GRID_DATAR483]"><div id="grid_483"></div></div>
+            <div style="[NC_DATAR483]; margin:30 5">Aucun formateur/testeur n'a de certification en R483</div>
+		</div>
+		<div class="contenu" id="contenu_3">
+            <div style="[GRID_DATAR484]"><div id="grid_484"></div></div>
+            <div style="[NC_DATAR484]; margin:30 5">Aucun formateur/testeur n'a de certification en R484</div>
+		</div>
+		<div class="contenu" id="contenu_4">		
+            <div style="[GRID_DATAR485]"><div id="grid_485"></div></div>
+            <div style="[NC_DATAR485]; margin:30 5">Aucun formateur/testeur n'a de certification en R485</div>
+		</div>
+		<div class="contenu" id="contenu_5">
+            <div style="[GRID_DATAR486]"><div id="grid_486"></div></div>
+            <div style="[NC_DATAR486]; margin:30 5">Aucun formateur/testeur n'a de certification en R486</div>
+		</div>
+		<div class="contenu" id="contenu_6">
+            <div style="[GRID_DATAR487]"><div id="grid_487"></div></div>
+            <div style="[NC_DATAR487]; margin:30 5">Aucun formateur/testeur n'a de certification en R487</div>
+		</div>
+		<div class="contenu" id="contenu_7">
+            <div style="[GRID_DATAR489]"><div id="grid_489"></div></div>
+            <div style="[NC_DATAR489]; margin:30 5">Aucun formateur/testeur n'a de certification en R489</div>
+		</div>
+		<div class="contenu" id="contenu_8">
+            <div style="[GRID_DATAR490]"><div id="grid_490"></div></div>
+            <div style="[NC_DATAR490]; margin:30 5">Aucun formateur/testeur n'a de certification en R490</div>
+		</div>
+        <div class="contenu" id="contenu_9">
+            <div id="grid_Synthese"></div>
+		</div>
+
+	 </fieldset>
+     </td>
+</tr>
+</table>
+
+<script>
+	$(document).ready(function() {
+        $("#grid_482").kendoGrid({
+            dataSource: {
+                data:[DATAR482]                    
+            },
+            height: 600,
+            filterable: true,
+            editable: false,
+            pageable: false,
+            sortable: true,
+            resizable: true,
+            columns: [
+                {
+                    field: "formateur",
+                    title: "FORMATEUR",
+                    template: function(dataItem) {
+                        var formateurId = dataItem.formateurId;
+                        var formateurNom = dataItem.formateur;
+                        return '<a href="?sole=Y&amp;&amp;app=FDL&amp;action=FDL_CARD&amp;latest=Y&amp;id=' + formateurId + '" title="Voir la fiche" target="_blank">' + formateurNom + '</a>';
+                    }
+                },
+                { field: "fonction", title: "FONCTION"},
+                { field: "categorie", title: "CATÉGORIE" },
+                { field: "date_fin_validite", title: "DATE FIN VALIDITÉ CACES" }, 
+                { field: "non_renseigne", title: "NON RENSEIGNÉ" },
+                { field: "non_valide", title: "NON VALIDE" },
+                { field: "non_valide_1_mois", title: "NON VALIDE DANS 1 MOIS" },
+                { field: "non_valide_2_mois", title: "2 MOIS" },
+                { field: "non_valide_3_mois", title: "3 MOIS" },
+                { field: "non_valide_4_mois", title: "4 MOIS" },
+                { field: "non_valide_5_mois", title: "5 MOIS" },
+                { field: "non_valide_6_mois", title: "6 MOIS" }
+
+            ],
+            toolbar: ["excel"],
+            excel: {
+                fileName: "CertificationFormateurR482.xlsx",
+                filterable: true,
+            },
+            excelExport: function(e) {
+                // Modify the exported data for the "formateur" column
+                var sheet = e.workbook.sheets[0];
+                // Find the index of the "formateur" column
+                var formateurColumnIndex = e.sender.columns.findIndex(column => column.field === "formateur");
+                for (var i = 0; i < sheet.rows.length; i++) {
+                    var cell = sheet.rows[i].cells[formateurColumnIndex];
+                    var formateurText = $($.parseHTML(cell.value)).text();
+                    cell.value = formateurText;
+                }
+            }
+        });
+
+        $("#grid_483").kendoGrid({
+            dataSource: {
+                data:[DATAR483]                    
+            },
+            height: 600,
+            filterable: true,
+            editable: false,
+            pageable: false,
+            toolbar: ["excel"],
+            excel: {
+                fileName: "CertificationFormateurR483.xlsx",
+                filterable: true,
+            },
+            excelExport: function(e) {
+                // Modify the exported data for the "formateur" column
+                var sheet = e.workbook.sheets[0];
+                // Find the index of the "formateur" column
+                var formateurColumnIndex = e.sender.columns.findIndex(column => column.field === "formateur");
+                for (var i = 0; i < sheet.rows.length; i++) {
+                    var cell = sheet.rows[i].cells[formateurColumnIndex];
+                    var formateurText = $($.parseHTML(cell.value)).text();
+                    cell.value = formateurText;
+                }
+            },
+            sortable: true,
+            resizable: true,
+            columns: [
+                {
+                    field: "formateur",
+                    title: "FORMATEUR",
+                    template: function(dataItem) {
+                        var formateurId = dataItem.formateurId;
+                        var formateurNom = dataItem.formateur;
+                        return '<a href="?sole=Y&amp;&amp;app=FDL&amp;action=FDL_CARD&amp;latest=Y&amp;id=' + formateurId + '" title="Voir la fiche" target="_blank">' + formateurNom + '</a>';
+                    }
+                },
+                { field: "fonction", title: "FONCTION"},
+                { field: "categorie", title: "CATÉGORIE" },
+                { field: "non_renseigne", title: "NON RENSEIGNÉ" },
+                { field: "non_valide", title: "NON VALIDE" },
+                { field: "non_valide_1_mois", title: "NON VALIDE DANS 1 MOIS" },
+                { field: "non_valide_2_mois", title: "2 MOIS" },
+                { field: "non_valide_3_mois", title: "3 MOIS" },
+                { field: "non_valide_4_mois", title: "4 MOIS" },
+                { field: "non_valide_5_mois", title: "5 MOIS" },
+                { field: "non_valide_6_mois", title: "6 MOIS" }
+
+            ]
+        });
+
+        $("#grid_484").kendoGrid({
+            dataSource: {
+                data:[DATAR484]                    
+            },
+            height: 600,
+            filterable: true,
+            editable: false,
+            pageable: false,
+            toolbar: ["excel"],
+            excel: {
+                fileName: "CertificationFormateurR484.xlsx",
+                filterable: true,
+            },
+            excelExport: function(e) {
+                // Modify the exported data for the "formateur" column
+                var sheet = e.workbook.sheets[0];
+                // Find the index of the "formateur" column
+                var formateurColumnIndex = e.sender.columns.findIndex(column => column.field === "formateur");
+                for (var i = 0; i < sheet.rows.length; i++) {
+                    var cell = sheet.rows[i].cells[formateurColumnIndex];
+                    var formateurText = $($.parseHTML(cell.value)).text();
+                    cell.value = formateurText;
+                }
+            },
+            sortable: true,
+            resizable: true,
+            columns: [
+                {
+                    field: "formateur",
+                    title: "FORMATEUR",
+                    template: function(dataItem) {
+                        var formateurId = dataItem.formateurId;
+                        var formateurNom = dataItem.formateur;
+                        return '<a href="?sole=Y&amp;&amp;app=FDL&amp;action=FDL_CARD&amp;latest=Y&amp;id=' + formateurId + '" title="Voir la fiche" target="_blank">' + formateurNom + '</a>';
+                    }
+                },
+                { field: "fonction", title: "FONCTION"},
+                { field: "categorie", title: "CATÉGORIE" },
+                { field: "non_renseigne", title: "NON RENSEIGNÉ" },
+                { field: "non_valide", title: "NON VALIDE" },
+                { field: "non_valide_1_mois", title: "NON VALIDE DANS 1 MOIS" },
+                { field: "non_valide_2_mois", title: "2 MOIS" },
+                { field: "non_valide_3_mois", title: "3 MOIS" },
+                { field: "non_valide_4_mois", title: "4 MOIS" },
+                { field: "non_valide_5_mois", title: "5 MOIS" },
+                { field: "non_valide_6_mois", title: "6 MOIS" }
+
+            ]
+        });
+
+        $("#grid_485").kendoGrid({
+            dataSource: {
+                data:[DATAR485]                    
+            },
+            height: 600,
+            filterable: true,
+            editable: false,
+            pageable: false,
+            toolbar: ["excel"],
+            excel: {
+                fileName: "CertificationFormateurR485.xlsx",
+                filterable: true,
+            },
+            excelExport: function(e) {
+                // Modify the exported data for the "formateur" column
+                var sheet = e.workbook.sheets[0];
+                // Find the index of the "formateur" column
+                var formateurColumnIndex = e.sender.columns.findIndex(column => column.field === "formateur");
+                for (var i = 0; i < sheet.rows.length; i++) {
+                    var cell = sheet.rows[i].cells[formateurColumnIndex];
+                    var formateurText = $($.parseHTML(cell.value)).text();
+                    cell.value = formateurText;
+                }
+            },
+            sortable: true,
+            resizable: true,
+            columns: [
+                {
+                    field: "formateur",
+                    title: "FORMATEUR",
+                    template: function(dataItem) {
+                        var formateurId = dataItem.formateurId;
+                        var formateurNom = dataItem.formateur;
+                        return '<a href="?sole=Y&amp;&amp;app=FDL&amp;action=FDL_CARD&amp;latest=Y&amp;id=' + formateurId + '" title="Voir la fiche" target="_blank">' + formateurNom + '</a>';
+                    }
+                },
+                { field: "fonction", title: "FONCTION"},
+                { field: "categorie", title: "CATÉGORIE" },
+                { field: "non_renseigne", title: "NON RENSEIGNÉ" },
+                { field: "non_valide", title: "NON VALIDE" },
+                { field: "non_valide_1_mois", title: "NON VALIDE DANS 1 MOIS" },
+                { field: "non_valide_2_mois", title: "2 MOIS" },
+                { field: "non_valide_3_mois", title: "3 MOIS" },
+                { field: "non_valide_4_mois", title: "4 MOIS" },
+                { field: "non_valide_5_mois", title: "5 MOIS" },
+                { field: "non_valide_6_mois", title: "6 MOIS" }
+
+            ]
+        });
+
+        $("#grid_486").kendoGrid({
+            dataSource: {
+                data:[DATAR486]                    
+            },
+            height: 600,
+            filterable: true,
+            editable: false,
+            pageable: false,
+            toolbar: ["excel"],
+            excel: {
+                fileName: "CertificationFormateurR486.xlsx",
+                filterable: true,
+            },
+            excelExport: function(e) {
+                // Modify the exported data for the "formateur" column
+                var sheet = e.workbook.sheets[0];
+                // Find the index of the "formateur" column
+                var formateurColumnIndex = e.sender.columns.findIndex(column => column.field === "formateur");
+                for (var i = 0; i < sheet.rows.length; i++) {
+                    var cell = sheet.rows[i].cells[formateurColumnIndex];
+                    var formateurText = $($.parseHTML(cell.value)).text();
+                    cell.value = formateurText;
+                }
+            },
+            sortable: true,
+            resizable: true,
+            columns: [
+                {
+                    field: "formateur",
+                    title: "FORMATEUR",
+                    template: function(dataItem) {
+                        var formateurId = dataItem.formateurId;
+                        var formateurNom = dataItem.formateur;
+                        return '<a href="?sole=Y&amp;&amp;app=FDL&amp;action=FDL_CARD&amp;latest=Y&amp;id=' + formateurId + '" title="Voir la fiche" target="_blank">' + formateurNom + '</a>';
+                    }
+                },
+                { field: "fonction", title: "FONCTION"},
+                { field: "categorie", title: "CATÉGORIE" },
+                { field: "non_renseigne", title: "NON RENSEIGNÉ" },
+                { field: "non_valide", title: "NON VALIDE" },
+                { field: "non_valide_1_mois", title: "NON VALIDE DANS 1 MOIS" },
+                { field: "non_valide_2_mois", title: "2 MOIS" },
+                { field: "non_valide_3_mois", title: "3 MOIS" },
+                { field: "non_valide_4_mois", title: "4 MOIS" },
+                { field: "non_valide_5_mois", title: "5 MOIS" },
+                { field: "non_valide_6_mois", title: "6 MOIS" }
+
+            ]
+        });
+
+        $("#grid_487").kendoGrid({
+            dataSource: {
+                data:[DATAR487]                    
+            },
+            height: 600,
+            filterable: true,
+            editable: false,
+            pageable: false,
+            toolbar: ["excel"],
+            excel: {
+                fileName: "CertificationFormateurR487.xlsx",
+                filterable: true,
+            },
+            excelExport: function(e) {
+                // Modify the exported data for the "formateur" column
+                var sheet = e.workbook.sheets[0];
+                // Find the index of the "formateur" column
+                var formateurColumnIndex = e.sender.columns.findIndex(column => column.field === "formateur");
+                for (var i = 0; i < sheet.rows.length; i++) {
+                    var cell = sheet.rows[i].cells[formateurColumnIndex];
+                    var formateurText = $($.parseHTML(cell.value)).text();
+                    cell.value = formateurText;
+                }
+            },
+            sortable: true,
+            resizable: true,
+            columns: [
+                {
+                    field: "formateur",
+                    title: "FORMATEUR",
+                    template: function(dataItem) {
+                        var formateurId = dataItem.formateurId;
+                        var formateurNom = dataItem.formateur;
+                        return '<a href="?sole=Y&amp;&amp;app=FDL&amp;action=FDL_CARD&amp;latest=Y&amp;id=' + formateurId + '" title="Voir la fiche" target="_blank">' + formateurNom + '</a>';
+                    }
+                },
+                { field: "fonction", title: "FONCTION"},
+                { field: "categorie", title: "CATÉGORIE" },
+                { field: "non_renseigne", title: "NON RENSEIGNÉ" },
+                { field: "non_valide", title: "NON VALIDE" },
+                { field: "non_valide_1_mois", title: "NON VALIDE DANS 1 MOIS" },
+                { field: "non_valide_2_mois", title: "2 MOIS" },
+                { field: "non_valide_3_mois", title: "3 MOIS" },
+                { field: "non_valide_4_mois", title: "4 MOIS" },
+                { field: "non_valide_5_mois", title: "5 MOIS" },
+                { field: "non_valide_6_mois", title: "6 MOIS" }
+
+            ]
+        });
+
+        $("#grid_489").kendoGrid({
+            dataSource: {
+                data:[DATAR489]                    
+            },
+            height: 600,
+            filterable: true,
+            editable: false,
+            pageable: false,
+            toolbar: ["excel"],
+            excel: {
+                fileName: "CertificationFormateurR489.xlsx",
+                filterable: true,
+            },
+            excelExport: function(e) {
+                // Modify the exported data for the "formateur" column
+                var sheet = e.workbook.sheets[0];
+                // Find the index of the "formateur" column
+                var formateurColumnIndex = e.sender.columns.findIndex(column => column.field === "formateur");
+                for (var i = 0; i < sheet.rows.length; i++) {
+                    var cell = sheet.rows[i].cells[formateurColumnIndex];
+                    var formateurText = $($.parseHTML(cell.value)).text();
+                    cell.value = formateurText;
+                }
+            },
+            sortable: true,
+            resizable: true,
+            columns: [
+                {
+                    field: "formateur",
+                    title: "FORMATEUR",
+                    template: function(dataItem) {
+                        var formateurId = dataItem.formateurId;
+                        var formateurNom = dataItem.formateur;
+                        return '<a href="?sole=Y&amp;&amp;app=FDL&amp;action=FDL_CARD&amp;latest=Y&amp;id=' + formateurId + '" title="Voir la fiche" target="_blank">' + formateurNom + '</a>';
+                    }
+                },
+                { field: "fonction", title: "FONCTION"},
+                { field: "categorie", title: "CATÉGORIE" },
+                { field: "non_renseigne", title: "NON RENSEIGNÉ" },
+                { field: "non_valide", title: "NON VALIDE" },
+                { field: "non_valide_1_mois", title: "NON VALIDE DANS 1 MOIS" },
+                { field: "non_valide_2_mois", title: "2 MOIS" },
+                { field: "non_valide_3_mois", title: "3 MOIS" },
+                { field: "non_valide_4_mois", title: "4 MOIS" },
+                { field: "non_valide_5_mois", title: "5 MOIS" },
+                { field: "non_valide_6_mois", title: "6 MOIS" }
+
+            ]
+        });
+
+        $("#grid_490").kendoGrid({
+            dataSource: {
+                data:[DATAR490]                    
+            },
+            height: 600,
+            filterable: true,
+            editable: false,
+            pageable: false,
+            toolbar: ["excel"],
+            excel: {
+                fileName: "CertificationFormateurR490.xlsx",
+                filterable: true,
+            },
+            excelExport: function(e) {
+                // Modify the exported data for the "formateur" column
+                var sheet = e.workbook.sheets[0];
+                // Find the index of the "formateur" column
+                var formateurColumnIndex = e.sender.columns.findIndex(column => column.field === "formateur");
+                for (var i = 0; i < sheet.rows.length; i++) {
+                    var cell = sheet.rows[i].cells[formateurColumnIndex];
+                    var formateurText = $($.parseHTML(cell.value)).text();
+                    cell.value = formateurText;
+                }
+            },
+            sortable: true,
+            resizable: true,
+            columns: [
+                {
+                    field: "formateur",
+                    title: "FORMATEUR",
+                    template: function(dataItem) {
+                        var formateurId = dataItem.formateurId;
+                        var formateurNom = dataItem.formateur;
+                        return '<a href="?sole=Y&amp;&amp;app=FDL&amp;action=FDL_CARD&amp;latest=Y&amp;id=' + formateurId + '" title="Voir la fiche" target="_blank">' + formateurNom + '</a>';
+                    }
+                },
+                { field: "fonction", title: "FONCTION"},
+                { field: "categorie", title: "CATÉGORIE" },
+                { field: "non_renseigne", title: "NON RENSEIGNÉ" },
+                { field: "non_valide", title: "NON VALIDE" },
+                { field: "non_valide_1_mois", title: "NON VALIDE DANS 1 MOIS" },
+                { field: "non_valide_2_mois", title: "2 MOIS" },
+                { field: "non_valide_3_mois", title: "3 MOIS" },
+                { field: "non_valide_4_mois", title: "4 MOIS" },
+                { field: "non_valide_5_mois", title: "5 MOIS" },
+                { field: "non_valide_6_mois", title: "6 MOIS" }
+
+            ]
+        });
+        
+        $("#grid_Synthese").kendoGrid({
+            dataSource: {
+                data:[SYNTHESE]                  
+            },
+            height: 600,
+            filterable: true,
+            editable: false,
+            pageable: false,
+            toolbar: ["excel"],
+            excel: {
+                fileName: "CertificationFormateurSynthese.xlsx",
+                filterable: true,
+            },
+            excelExport: function(e) {
+                // Modify the exported data for the "formateur" column
+                var sheet = e.workbook.sheets[0];
+                // Find the index of the "formateur" column
+                var formateurColumnIndex = e.sender.columns.findIndex(column => column.field === "formateur");
+                for (var i = 0; i < sheet.rows.length; i++) {
+                    var cell = sheet.rows[i].cells[formateurColumnIndex];
+                    var formateurText = $($.parseHTML(cell.value)).text();
+                    cell.value = formateurText;
+                }
+            },
+            sortable: true,
+            resizable: true,
+            columns: [
+                {
+                    field: "formateur",
+                    title: "FORMATEUR",
+                    template: function(dataItem) {
+                        var formateurId = dataItem.formateurId;
+                        var formateurNom = dataItem.formateur;
+                        return '<a href="?sole=Y&amp;&amp;app=FDL&amp;action=FDL_CARD&amp;latest=Y&amp;id=' + formateurId + '" title="Voir la fiche" target="_blank">' + formateurNom + '</a>';
+                    }
+                },
+                { field: "fonction", title: "FONCTION"},
+                { field: "categorie", title: "CATÉGORIE" },
+                { field: "non_renseigne", title: "NON RENSEIGNÉ" },
+                { field: "non_valide", title: "NON VALIDE" },
+                { field: "non_valide_1_mois", title: "NON VALIDE DANS 1 MOIS" },
+                { field: "non_valide_2_mois", title: "2 MOIS" },
+                { field: "non_valide_3_mois", title: "3 MOIS" },
+                { field: "non_valide_4_mois", title: "4 MOIS" },
+                { field: "non_valide_5_mois", title: "5 MOIS" },
+                { field: "non_valide_6_mois", title: "6 MOIS" }
+
+            ]
+        });
+
+        // Vérifiez si la grille est vide et affichez quelque chose
+        var grid = $("#grid_Synthese").data("kendoGrid");
+        if (grid.dataSource.data().length === 0) {
+            // Si la grille est vide, afficher quelque chose
+            $("#grid_Synthese").append('<p>Le contenu est vide.</p>');
+        }
+	});
+</script>
+
+<script type="text/javascript">
+//<!--
+	Affiche(Onglet_afficher);
+//-->	
+</script>
+
+<style type="text/css">
+    p {
+        margin: 30px 5px;
+    }
+</style>
+</form>
+</body>     
